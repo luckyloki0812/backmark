@@ -77,6 +77,12 @@ public:
 	int		m_nZoom;
 	//}}AFX_DATA
 
+
+	//add by wyn
+
+	/*CStdioFile EXCEL;
+	char* FILENAME;*/
+	
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CYUVviewerDlg)
 	protected:

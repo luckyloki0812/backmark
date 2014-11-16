@@ -67,6 +67,10 @@ public:
 	int m_iCount;
 
 	LPBYTE Y,Cb,Cr,RGBbuf,pTemp;	/* 几个指针，会指向存放像素相关值的内存空间 */
+	//add by wyn
+		CStdioFile EXCEL;
+	char* FILENAME;
+
 	CChildWindow(CFrameWnd* pParentWnd,int Width,int Height, BOOL bColor);
     ~CChildWindow();
 
@@ -88,6 +92,7 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 /////////////////////////////////////////////////////////////////////////////

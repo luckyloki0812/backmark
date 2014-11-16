@@ -60,10 +60,15 @@ CChildWindow::~CChildWindow()	//析构
 	free(Y);	
 	free(Cb);
 	free(Cr);
+	EXCEL.Close();
 }
 
 CChildWindow::CChildWindow( CFrameWnd *pParentWnd,int Width,int Height, BOOL bColor)
 {    
+	FILENAME="aa.xls";
+	/*|CFile::modeNoTruncate*/
+	EXCEL.Open(FILENAME,CFile::modeCreate|CFile::modeWrite);
+
 	iWidth=Width;iHeight=Height;bColorImage=bColor;
 
 	m_iCount = ((CYUVviewerDlg *)pParentWnd)->m_iCount;
@@ -232,6 +237,7 @@ BEGIN_MESSAGE_MAP(CChildWindow, CFrameWnd)
 	ON_WM_PAINT()
 	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -254,7 +260,67 @@ void CChildWindow::OnPaint()
 	
 	int m_nWidth=640;
 	int m_nHeight=480;
+	int mbnum=(m_nWidth*m_nHeight)/(16*16);
+	char* markflag;
+	char* markflag_temp;
+	
+	//markflag=malloc(mbnum);
+	markflag = (char *)malloc(mbnum) ;
+     ZeroMemory(markflag,mbnum);
+
 	pTemp=Y;
+	markflag_temp=markflag;
+	//测试yuv输出是否正常，实验证明，Y中存储的是按照正常顺序的图像
+	/*for(int i=0;i<m_nHeight;i++)
+		{
+			for(int j=0;j<m_nWidth;j++)
+				{
+					CString str_markflag;
+						str_markflag.Format("%d\t",*Y);
+	                  EXCEL.WriteString(str_markflag);
+					  Y++;
+			}
+			CString str_markflag;
+						str_markflag.Format("\n");
+	                  EXCEL.WriteString(str_markflag);
+	}*/
+		Y=pTemp;
+
+	for(int i=0;i<m_nHeight/16;i++)
+		{
+			for(int j=0;j<m_nWidth/16;j++)
+				{
+					for(int k=0;k<16;k++)
+		         	{
+					for(int q=0;q<16;q++)
+					{
+	                     if(*Y==255)
+						{
+							*markflag=1;
+						}
+						//CString str_markflag;
+						//str_markflag.Format("%d\t",*Y);
+	     //             EXCEL.WriteString(str_markflag);
+							Y++;
+					}
+				}
+			//CString str_markflag;
+			//			str_markflag.Format("\n");
+	  //                EXCEL.WriteString(str_markflag);
+			markflag++;		
+			}
+	}
+	markflag=markflag_temp;
+	//CString str_markflag;
+	//for(int i=0;i<mbnum;i++)
+	//{
+	//str_markflag.Format("%d\n",*(markflag+i))
+	//EXCEL.WriteString(str_markflag);
+	//}
+	
+	//EXCEL.Write(markflag,mbnum);
+	
+	Y=pTemp;
 	for(int i=m_nHeight/16-1;i>=0;i--)
 		{
 			for(int k=0;k<16;k++)
@@ -263,15 +329,14 @@ void CChildWindow::OnPaint()
 				{
 					for(int q=0;q<16;q++)
 					{
+
 						if (q==0||k==0)
 						{
-							*Y = 0;							
-							Y++;	
+							*Y = 128;							
+								
 						}
-						else
-						{
+
 							Y++;
-						}
 					}
 				}
 			}
@@ -323,4 +388,38 @@ int CChildWindow::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	LocalFree(hloc1);
 
 	return 0;
+}
+
+
+void CChildWindow::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	CRect lRect;
+//	GetDlgItem()->GetWindowRect(lRect);
+	//if((point.x>=lRect.left && point.x<=lRect.right) && (point.y>=lRect.top && point.y<=lRect.bottom))
+//	    GetWindowRect(lRect);
+    GetClientRect(lRect);
+//	ScreenToClient(lRect);
+
+	if (PtInRect(&lRect,point))
+	{
+		//  通过对point的处理，获得实际在picture控件中的点击位置（坐标），完成。
+		CString STR;
+		//point.x-=lRect.left;
+
+		//point.y-=lRect.top;
+		STR.Format("x:%d,y:%d",point.x,point.y);
+
+
+		CClientDC dc(this);
+		CBrush pNewBrush(RGB(255,0,0));
+		CBrush *pOldBrush=dc.SelectObject(&pNewBrush);
+		dc.Rectangle(point.x,point.y,point.x+16,point.y+16);
+		dc.SelectObject(pOldBrush);
+
+	//	AfxMessageBox(STR);
+
+
+	}
+	CFrameWnd::OnLButtonDown(nFlags, point);
 }

@@ -61,6 +61,9 @@ void getSeqName(char *inseqpath, char *seqname);
 
 //int nImgWidth, nImgHeight;
 
+//add by wyn
+//FILENAME="a.xls";
+
 /*
 线程入口函数
 */
@@ -210,6 +213,7 @@ void CYUVviewerDlg::OnCloseall()
 		if(m_pWnd[i])
 			m_pWnd[i]->DestroyWindow();	//销毁播放窗口
 	}
+	//EXCEL.Close();
 	m_iCount = 0;						//打开的文件数=0
 
 	g_nFrameNumber = 0;					//
@@ -233,7 +237,7 @@ void CYUVviewerDlg::OnCancel() //通过右上角的叉号退出，也是这个响应函数
 		if(m_pWnd[i])
 			m_pWnd[i]->DestroyWindow();	//销毁播放窗口
 	}
-	
+	//	EXCEL.Close();
 	CDialog::OnCancel();
 }
 
@@ -259,6 +263,10 @@ void CYUVviewerDlg::OnOpenfile()
 		AfxMessageBox("不能打开输入文件");
 //		return 0;
 	}
+	//add by wyn
+	//CStdioFile EXCEL;
+	//char* FILENAME;
+	//EXCEL.Open(FILENAME,CFile::modeCreate|CFile::modeNoTruncate|CFile::modeWrite);
 /*
 char *oneframe;
 CFile outf;
@@ -377,6 +385,10 @@ void CYUVviewerDlg::OnNext() //“下1帧”按钮
 	UINT picsize = m_nWidth*m_nHeight;
 
 	UpdateData(TRUE);
+	if(g_nCurrentFrame==0)
+	{
+		g_nCurrentFrame=1;
+	}
 
 	g_nStartFrame = m_nFrameFrom;
 	if(m_nFrameTo != 0) g_nEndFrame = m_nFrameTo;

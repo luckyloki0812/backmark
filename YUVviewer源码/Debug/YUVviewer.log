@@ -1,5 +1,5 @@
-﻿生成启动时间为 2014/11/15 13:55:05。
-     1>项目“E:\wynn\BAIDUYUN\百度云同步盘\实验室电脑\陈鑫\cx材料\YUVviewer_formark\YUVviewer源码\YUVviewer.vcxproj”在节点 2 上(Build 个目标)。
+﻿生成启动时间为 2014/11/15 22:08:16。
+     1>项目“C:\Users\510\Documents\GitHub\backmark\YUVviewer源码\YUVviewer.vcxproj”在节点 2 上(Build 个目标)。
      1>InitializeBuildStatus:
          正在创建“.\Debug\YUVviewer.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
@@ -15,14 +15,14 @@
          .\Debug\YUVviewer.obj
          .\Debug\YUVviewerDlg.obj
          cscc.lib
-         YUVviewer.vcxproj -> E:\wynn\BAIDUYUN\百度云同步盘\实验室电脑\陈鑫\cx材料\YUVviewer_formark\YUVviewer源码\.\Debug\YUVviewer.exe
+         YUVviewer.vcxproj -> C:\Users\510\Documents\GitHub\backmark\YUVviewer源码\.\Debug\YUVviewer.exe
        BscMake:
-         D:\vs2012\VC\bin\bscmake.exe /nologo /o".\Debug\YUVviewer.bsc" .\Debug\ChildWindow.sbr .\Debug\StdAfx.sbr .\Debug\YUVviewer.sbr .\Debug\YUVviewerDlg.sbr
+         所有输出均为最新。
        FinalizeBuildStatus:
          正在删除文件“.\Debug\YUVviewer.unsuccessfulbuild”。
          正在对“.\Debug\YUVviewer.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“E:\wynn\BAIDUYUN\百度云同步盘\实验室电脑\陈鑫\cx材料\YUVviewer_formark\YUVviewer源码\YUVviewer.vcxproj”(Build 个目标)的操作。
+     1>已完成生成项目“C:\Users\510\Documents\GitHub\backmark\YUVviewer源码\YUVviewer.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:06.52
+已用时间 00:00:01.13
